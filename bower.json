@@ -1,0 +1,27 @@
+{
+  "name": "MinesweeperReborn",
+  "version": "0.0.1",
+  "homepage": "https://github.com/WDI-HK-8/MinesweeperReborn",
+  "authors": [
+    "Yohan <yohanology@gmail.com>"
+  ],
+  "description": "Avoid and flagged the mines. Be careful, don't get blown up!",
+  "main": "index.html",
+  "keywords": [
+    "minesweeper",
+    "reborn",
+    "game"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5"
+  }
+}
