@@ -32,3 +32,14 @@ body {
 header {
 	margin-bottom: 20px;
 }
+
+footer {
+	margin-top: 20px;
+}
+
+button {
+	background-color: rgb(142, 68, 173);
+	border: none;
+	border-radius: 5px;
+	font-size: 18px;
+}

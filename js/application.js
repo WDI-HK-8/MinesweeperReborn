@@ -3,6 +3,12 @@
   var hiddenBoard = [];
   var openBoard = [];
 
+
+  // Erase table
+  function eraseTable() {
+    $('#tableBody').children().remove();
+  }
+
   // Load board table
   function loadTable(row,col){
     loadBoardArray(row,col);
@@ -127,6 +133,12 @@
     var row = $(this).parent().index()
     play(row,col);
 
+  })
+
+// Reset button
+  $(document).on('click','#reset',function() {
+    eraseTable();
+    loadTable(10,10);
   })
 
 loadTable(10,10);
