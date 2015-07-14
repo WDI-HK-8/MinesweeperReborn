@@ -36,6 +36,17 @@
     }
   }
 
+
+  // Create board table
+  function createTable(row,col) {
+    for (var i = 0; i < row; i++) {
+      $('#tableBody').append('<tr></tr>');
+    }
+    for (var j= 0; j < col; j++) {
+      $('#tableBody').children().append('<td></td>');
+    }
+  }
+
   // Load openBoard empty cells
   function loadOpenBoardArray() {
     for (var i = 0; i<hiddenBoard.length; i++) {
