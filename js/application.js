@@ -4,7 +4,7 @@
   var openBoard = [['','','','',''],['','','','',''],['','','','',''],['','','','',''],['','','','','']];
 
   // Load hiddenBoard cells
-  function loadBoard(row,col) {
+  function loadBoardArray(row,col) {
       var nbMines = Math.floor((row*col)*0.1);
       for (var i = 0; i<row; i++) {
           hiddenBoard[i] = [];
@@ -102,6 +102,6 @@
 
   })
 
-loadBoard(5,5)
+loadBoardArray(5,5)
 
 });
