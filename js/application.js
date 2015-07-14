@@ -42,22 +42,26 @@
     }
   }
 
-  // Play game by chossing a cell
+  // Play game by choosing a cell
   var play = function(row,col) {
     open(row,col);
     updateValues();
   }
 
   //click event
-  var loadClick = function() {
-    for (i = 0; i < 5; i++) {
-        for (j = 0; j < 5; j++) {
-            $(document).on('click','#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ')',function(){
-              play(i,j);
-            })
-        }
-    }
-  }
+  // var loadClick = function() {
+  //   for (i = 0; i < 4; i++) {
+  //       for (j = 0; j < 4; j++) {
+  //         $('#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ') ').click(function(){play(i,j)})
+  //   }
+  // }
 
+// Click events to cells
+  $('#tableBody td').click(function() {
+    var col = $(this).index()
+    var row = $(this).parent().index()
+    play(row,col);
+
+  })
 
 });
