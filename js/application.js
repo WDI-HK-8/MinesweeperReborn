@@ -3,6 +3,12 @@
   var hiddenBoard = [];
   var openBoard = [];
 
+  // Load board table
+  function loadTable(row,col){
+    loadBoardArray(row,col);
+    loadOpenBoardArray(row,col);
+    createTable(row,col);
+  }
 
   // Create board table
   function createTable(row,col) {
@@ -26,7 +32,7 @@
 
   // Load hiddenBoard cells
   function loadBoardArray(row,col) {
-      var nbMines = Math.floor((row*col)*0.1);
+      var nbMines = Math.floor((row*col)*0.2);
       for (var i = 0; i<row; i++) {
           hiddenBoard[i] = [];
           for (var j= 0; j<col; j++) {
@@ -123,9 +129,6 @@
 
   })
 
-
-loadBoardArray(10,10)
-loadOpenBoardArray(10,10)
-createTable(10,10)
+loadTable(10,10);
 
 });
