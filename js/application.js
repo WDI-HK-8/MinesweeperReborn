@@ -3,6 +3,17 @@
   var hiddenBoard = [];
   var openBoard = [];
 
+
+  // Create board table
+  function createTable(row,col) {
+    for (var i = 0; i < row; i++) {
+      $('#tableBody').append('<tr></tr>');
+    }
+    for (var j= 0; j < col; j++) {
+      $('#tableBody').children().append('<td></td>');
+    }
+  }
+
   // Load openBoard empty cells
   function loadOpenBoardArray(row,col) {
     for (var i = 0; i<row; i++) {
@@ -87,7 +98,7 @@
   }
 
   // Update values of the board in html
-  var updateValues = function () {
+  var updateValues = function(row,col) {
     for (i = 0; i < openBoard.length; i++) {
       for (j = 0; j < openBoard[i].length; j++) {
         if (openBoard[i][j] !== "") {
@@ -105,14 +116,16 @@
 
 
 // Click events to cells
-  $('#tableBody td').click(function() {
+  $(document).on('click','#tableBody td',function() {
     var col = $(this).index()
     var row = $(this).parent().index()
     play(row,col);
 
   })
 
-loadBoardArray(5,5)
-loadOpenBoardArray(5,5)
+
+loadBoardArray(10,10)
+loadOpenBoardArray(10,10)
+createTable(10,10)
 
 });
