@@ -1,7 +1,52 @@
   $(document).ready(function(){
 
-  var hiddenBoard = [['X',1,0,1,1],[1,1,0,1,'X'],[0,0,1,2,2],[0,0,1,'X',2],[0,0,1,2,'X']];
+  var hiddenBoard = [];
   var openBoard = [['','','','',''],['','','','',''],['','','','',''],['','','','',''],['','','','','']];
+
+  // Load hiddenBoard cells
+  function loadBoard(row,col) {
+      var nbMines = Math.floor((row*col)*0.1);
+      for (var i = 0; i<row; i++) {
+          hiddenBoard[i] = [];
+          for (var j= 0; j<col; j++) {
+              hiddenBoard[i][j] = 0;
+          }
+      }
+      for (var x = 0; x < nbMines; x++) {
+          randPosMine(row,col);
+      }
+  }
+
+  // Random positions generator for hiddenBoard
+  function rand(limit) {
+      return Math.floor(Math.random()*limit);
+  }
+
+  // Random bomb positions in hiddenBoard and put numbers around them
+  function randPosMine(row,col) {
+      var randCol = rand(col);
+      var randRow = rand(row);
+      if (hiddenBoard[randRow][randCol] != 'X') {
+          hiddenBoard[randRow][randCol] = 'X';
+          addNumbAround(randRow,randCol);
+      } else {
+          console.log('position already taken');
+          randPosMine(row,col);
+      }
+  }
+
+  // Numbers generator around bombs
+  function addNumbAround(row,col) {
+      for (var i = -1; i < 2; i++) {
+          if (hiddenBoard[row+i] !== undefined) {
+              for (var j = -1; j < 2; j++) {
+                  if ((hiddenBoard[row+i][col+j] !== undefined) && (hiddenBoard[row+i][col+j] !== hiddenBoard[row][col]) && (hiddenBoard[row+i][col+j]>= 0)) {
+                      hiddenBoard[row+i][col+j]++;
+                  }
+              }
+          }
+      }
+  }
 
 
   // Open a cell
@@ -56,5 +101,7 @@
     play(row,col);
 
   })
+
+loadBoard(5,5)
 
 });
