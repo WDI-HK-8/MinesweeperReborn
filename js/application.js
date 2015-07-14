@@ -1,7 +1,17 @@
   $(document).ready(function(){
 
   var hiddenBoard = [];
-  var openBoard = [['','','','',''],['','','','',''],['','','','',''],['','','','',''],['','','','','']];
+  var openBoard = [];
+
+  // Load openBoard empty cells
+  function loadOpenBoardArray(row,col) {
+    for (var i = 0; i<row; i++) {
+        openBoard[i] = [];
+        for (var j= 0; j<col; j++) {
+            openBoard[i][j] = "";
+        }
+    }
+  }
 
   // Load hiddenBoard cells
   function loadBoardArray(row,col) {
@@ -103,5 +113,6 @@
   })
 
 loadBoardArray(5,5)
+loadOpenBoardArray(5,5)
 
 });
