@@ -33,8 +33,8 @@
 
   // Update values of the board in html
   var updateValues = function () {
-    for (i = 0; i < 5; i++) {
-      for (j = 0; j < 5; j++) {
+    for (i = 0; i < openBoard.length; i++) {
+      for (j = 0; j < openBoard[i].length; j++) {
         if (openBoard[i][j] !== "") {
           $('#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ') ').text(openBoard[i][j])
         }
