@@ -98,7 +98,7 @@
   }
 
   // Update values of the board in html
-  var updateValues = function(row,col) {
+  var updateValues = function() {
     for (i = 0; i < openBoard.length; i++) {
       for (j = 0; j < openBoard[i].length; j++) {
         if (openBoard[i][j] !== "") {
