@@ -48,6 +48,16 @@
     updateValues();
   }
 
+  //click event
+  var loadClick = function() {
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            $(document).on('click','#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ')',function(){
+              play(i,j);
+            })
+        }
+    }
+  }
 
 
 });
