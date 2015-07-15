@@ -174,7 +174,7 @@
             cellPosition.addClass("opened-four").text(openBoard[i][j]);
             break;
           case "X":
-            cellPosition.addClass("opened-bomb").text(openBoard[i][j]);
+            cellPosition.addClass("opened-bomb").append('<span class="glyphicon glyphicon-fire"></span>');
             break;
         } 
       }
