@@ -6,10 +6,23 @@
   var nbRows = 10;
   var nbCols = 10;
   var percentMines = 0.15;
-  var flagsLeft = 15;
+  var flagsLeft = Math.floor((nbCols*nbRows)*percentMines);
   
   loadTable(nbRows,nbCols,percentMines);
 
+  // Check win
+  function checkWin() {
+    if (flagsLeft === 0) {
+      for (i = 0; i < hiddenBoard.length; i++) {
+        for (j = 0; j < hiddenBoard[i].length; j++) {
+          if ( (hiddenBoard[i][j] === 'X') && (openBoard[i][j] === 'F') ) {
+            console.log("YOU WIN !!!");
+            gameOver = true;
+          } 
+        }
+      }
+    }
+  }
 
   //Flags left functions
   function addFlag() {
@@ -32,6 +45,7 @@
       console.log(flagsLeft,' flags left');
     }
     updateValues();
+    checkWin();
   }
 
   // Show bomb cells
