@@ -9,17 +9,17 @@
   
   loadTable(nbRows,nbCols,percentMines);
 
-  // Flag a bomb
-  function flagBomb(row,col) {
-    openBoard[row][col] = 'F';
+  // Flag/Unflag a cell
+  function flagCell(row,col) {
+    if (openBoard[row][col] === "") {
+      openBoard[row][col] = 'F';
+      console.log('flagged');
+    } else if (openBoard[row][col] === 'F') {
+      openBoard[row][col] = "";
+      console.log('unflagged');
+    }
     updateValues();
   }
-
-  // Unflag a bomb
-  function unFlagBomb(row,col) {
-    openBoard[row][col] = '';
-    updateValues();
-  }  
 
   // Show bomb cells
   var showBombs = function() {
@@ -28,20 +28,11 @@
         var cellPosition = $('#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ') ');
         if ( (hiddenBoard[i][j] === 'X') && (openBoard[i][j] === '') ) {
           openBoard[i][j] = 'X';
-          cellPosition.addClass("opened-bomb").append('<span class="glyphicon glyphicon-fire"></span>');
+          cellPosition.addClass("opened-bomb");
         } 
       }
     }
   }
-
-  // Flag right click event
-  $(document).on('click','#tableBody td',function() {
-    if (gameOver === false) {
-      var col = $(this).index()
-      var row = $(this).parent().index()
-      play(row,col);
-    }
-  });
 
   // Reset table
   function resetTable() {
@@ -66,7 +57,7 @@
       $('#tableBody').append('<tr></tr>');
     }
     for (var j = 0; j < hiddenBoard[0].length; j++) {
-      $('#tableBody').children().append('<td></td>');
+      $('#tableBody tr').append('<td></td>');
     }
   }
 
@@ -145,9 +136,10 @@
     if (openBoard[row][col] === 'X') {
       console.log('Game over. You just blew up into pieces.');
       gameOver = true;
+      showBombs();
     }
     if (openBoard[row][col] === 0) {
-          openAround(row,col);
+      openAround(row,col);
     }  
   }
   
@@ -157,7 +149,7 @@
       if (hiddenBoard[row+i] !== undefined) {
         for (var j = -1; j < 2; j++) {
           if ((hiddenBoard[row+i][col+j] !== undefined) && (openBoard[row+i][col+j] !== openBoard[row][col])) {
-                    open(row+i,col+j);
+            open(row+i,col+j);
           }
         }
       }
@@ -188,6 +180,12 @@
           case "X":
             cellPosition.addClass("opened-bomb").append('<span class="glyphicon glyphicon-fire"></span>');
             break;
+          case "F":
+            cellPosition.addClass("flag-bomb").append('<span class="glyphicon glyphicon-flag"></span>');
+            break;
+          case "":
+            cellPosition.removeClass("flag-bomb").children().remove();
+            break;
         } 
       }
     }
@@ -199,22 +197,35 @@
     updateValues();
   }
 
-
-// Click events to cells
+  // Play/Open click event
   $(document).on('click','#tableBody td',function() {
     if (gameOver === false) {
-      var col = $(this).index();
-      var row = $(this).parent().index();
+      var col = $(this).index()
+      var row = $(this).parent().index()
       play(row,col);
-    } else {
-      showBombs();
     }
-  })
+  });
 
-// Reset button
+  // Flag/Unflag click event
+  $(document).on('mousedown','#tableBody td',function(e) {    
+    if (e.button === 2) {
+      if (gameOver === false) {
+        var col = $(this).index();
+        var row = $(this).parent().index();
+        flagCell(row,col);
+      }
+    }
+  });
+
+  // Prevent context menu for right click
+  $(document).on("contextmenu",'#tableBody td',function(e) {
+      e.preventDefault();
+  });
+
+  // Reset button
   $(document).on('click','#reset',function() {
     resetTable();
-  })
+  });
 
 
 });
