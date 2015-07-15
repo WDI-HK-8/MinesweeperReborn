@@ -6,17 +6,30 @@
   var nbRows = 10;
   var nbCols = 10;
   var percentMines = 0.15;
+  var flagsLeft = 15;
   
   loadTable(nbRows,nbCols,percentMines);
+
+
+  //Flags left functions
+  function addFlag() {
+    flagsLeft++;
+  }
+
+  function minusFlag() {
+    flagsLeft--;
+  }
 
   // Flag/Unflag a cell
   function flagCell(row,col) {
     if (openBoard[row][col] === "") {
       openBoard[row][col] = 'F';
-      console.log('flagged');
+      minusFlag();
+      console.log(flagsLeft, ' flags left');
     } else if (openBoard[row][col] === 'F') {
       openBoard[row][col] = "";
-      console.log('unflagged');
+      addFlag();
+      console.log(flagsLeft,' flags left');
     }
     updateValues();
   }
@@ -85,6 +98,7 @@
   // Load hiddenBoard cells
   function loadBoardArray(row,col,percentMines) {
     var nbMines = Math.floor((row*col)*percentMines);
+    flagsLeft = nbMines;
     console.log('Loaded', nbMines, 'mines.')
     for (var i = 0; i<row; i++) {
         hiddenBoard[i] = [];
@@ -201,9 +215,11 @@
   // Play/Open click event
   $(document).on('click','#tableBody td',function() {
     if (gameOver === false) {
-      var col = $(this).index()
-      var row = $(this).parent().index()
-      play(row,col);
+      var col = $(this).index();
+      var row = $(this).parent().index();
+      if (openBoard[row][col] !== 'F') {
+        play(row,col);
+      }
     }
   });
 
