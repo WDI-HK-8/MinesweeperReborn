@@ -21,6 +21,19 @@
     updateValues();
   }  
 
+  // Show bomb cells
+  var showBombs = function() {
+    for (i = 0; i < hiddenBoard.length; i++) {
+      for (j = 0; j < hiddenBoard[i].length; j++) {
+        var cellPosition = $('#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ') ');
+        if ( (hiddenBoard[i][j] === 'X') && (openBoard[i][j] === '') ) {
+          openBoard[i][j] = 'X';
+          cellPosition.addClass("opened-bomb").append('<span class="glyphicon glyphicon-fire"></span>');
+        } 
+      }
+    }
+  }
+
   // Flag right click event
   $(document).on('click','#tableBody td',function() {
     if (gameOver === false) {
@@ -28,7 +41,7 @@
       var row = $(this).parent().index()
       play(row,col);
     }
-  })
+  });
 
   // Reset table
   function resetTable() {
@@ -71,7 +84,7 @@
   // Load openBoard empty cells
   function loadOpenBoardArray() {
     for (var i = 0; i<hiddenBoard.length; i++) {
-        openBoard[i] = [];
+      openBoard[i] = [];
         for (var j= 0; j<hiddenBoard[i].length; j++) {
             openBoard[i][j] = "";
         }
@@ -80,63 +93,62 @@
 
   // Load hiddenBoard cells
   function loadBoardArray(row,col,percentMines) {
-      var nbMines = Math.floor((row*col)*percentMines);
-      console.log('Loaded', nbMines, 'mines.')
-      for (var i = 0; i<row; i++) {
-          hiddenBoard[i] = [];
-          for (var j= 0; j<col; j++) {
-              hiddenBoard[i][j] = 0;
-          }
-      }
-      for (var x = 0; x < nbMines; x++) {
-          randPosMine(row,col);
-      }
+    var nbMines = Math.floor((row*col)*percentMines);
+    console.log('Loaded', nbMines, 'mines.')
+    for (var i = 0; i<row; i++) {
+        hiddenBoard[i] = [];
+        for (var j= 0; j<col; j++) {
+            hiddenBoard[i][j] = 0;
+        }
+    }
+    for (var x = 0; x < nbMines; x++) {
+        randPosMine(row,col);
+    }
   }
 
   // Random positions generator for hiddenBoard
   function rand(limit) {
-      return Math.floor(Math.random()*limit);
+    return Math.floor(Math.random()*limit);
   }
 
   // Random bomb positions in hiddenBoard and put numbers around them
   function randPosMine(row,col) {
-      var randCol = rand(col);
-      var randRow = rand(row);
-      if (hiddenBoard[randRow][randCol] != 'X') {
-          hiddenBoard[randRow][randCol] = 'X';
-          addNumbAround(randRow,randCol);
-      } else {
-          console.log('position already taken');
-          randPosMine(row,col);
-      }
+    var randCol = rand(col);
+    var randRow = rand(row);
+    if (hiddenBoard[randRow][randCol] != 'X') {
+        hiddenBoard[randRow][randCol] = 'X';
+        addNumbAround(randRow,randCol);
+    } else {
+        console.log('position already taken');
+        randPosMine(row,col);
+    }
   }
 
   // Numbers generator around bombs
   function addNumbAround(row,col) {
-      for (var i = -1; i < 2; i++) {
-          if (hiddenBoard[row+i] !== undefined) {
-              for (var j = -1; j < 2; j++) {
-                  if ((hiddenBoard[row+i][col+j] !== undefined) && (hiddenBoard[row+i][col+j] !== hiddenBoard[row][col]) && (hiddenBoard[row+i][col+j]>= 0)) {
-                      hiddenBoard[row+i][col+j]++;
-                  }
-              }
-          }
-      }
+    for (var i = -1; i < 2; i++) {
+        if (hiddenBoard[row+i] !== undefined) {
+            for (var j = -1; j < 2; j++) {
+                if ((hiddenBoard[row+i][col+j] !== undefined) && (hiddenBoard[row+i][col+j] !== hiddenBoard[row][col]) && (hiddenBoard[row+i][col+j]>= 0)) {
+                    hiddenBoard[row+i][col+j]++;
+                }
+            }
+        }
+    }
   }
 
 
   // Open a cell
   function open(row,col) {
-      openBoard[row][col] = hiddenBoard[row][col];
-      console.log('You found:',openBoard[row][col]);
-      if (openBoard[row][col] === 'X') {
-        console.log('Game over. You just blew up into pieces.')
-        gameOver = true;
-      }
-      if (openBoard[row][col] === 0) {
-            openAround(row,col);
-      }
-    
+    openBoard[row][col] = hiddenBoard[row][col];
+    console.log('You found:',openBoard[row][col]);
+    if (openBoard[row][col] === 'X') {
+      console.log('Game over. You just blew up into pieces.');
+      gameOver = true;
+    }
+    if (openBoard[row][col] === 0) {
+          openAround(row,col);
+    }  
   }
   
   //Open cells around a cell
@@ -191,9 +203,11 @@
 // Click events to cells
   $(document).on('click','#tableBody td',function() {
     if (gameOver === false) {
-      var col = $(this).index()
-      var row = $(this).parent().index()
+      var col = $(this).index();
+      var row = $(this).parent().index();
       play(row,col);
+    } else {
+      showBombs();
     }
   })
 
