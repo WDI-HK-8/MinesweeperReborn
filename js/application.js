@@ -181,7 +181,8 @@
             cellPosition.addClass("opened-bomb").append('<span class="glyphicon glyphicon-fire"></span>');
             break;
           case "F":
-            cellPosition.addClass("flag-bomb").append('<span class="glyphicon glyphicon-flag"></span>');
+            cellPosition.addClass("flag-bomb").children().remove();
+            cellPosition.append('<span class="glyphicon glyphicon-flag"></span>');
             break;
           case "":
             cellPosition.removeClass("flag-bomb").children().remove();
