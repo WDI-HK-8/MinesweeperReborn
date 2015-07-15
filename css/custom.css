@@ -1,9 +1,13 @@
 
 body {
-	background-color: rgb(52, 73, 94);
-	color: rgb(236, 240, 241);
+	background-color: #F5F5F5;
+	color: #fff;
 }
 
+h1 {
+	color: #607D8B;
+	font-family: 'Avenir';
+}
 
 .table {
 	table-layout: fixed;
@@ -12,12 +16,13 @@ body {
 	margin: 0 auto;
 }
 
-.table td {
+td {
 	text-align: center;
 	vertical-align: middle;
 	height: 50px;
-	background-color: rgb(44, 62, 80);
-	border: 4px solid rgb(52, 73, 94);
+	background-color: #607D8B;
+	border: 4px solid #F5F5F5;
+	border-radius: 2px;
 	font-size: 18px;
 }
 
@@ -26,7 +31,7 @@ body {
 }
 
 .table td:hover {
-	background-color: rgb(40, 60, 75)
+	background-color: none;
 }
 
 header {
@@ -38,8 +43,38 @@ footer {
 }
 
 button {
-	background-color: rgb(142, 68, 173);
+	background-color: #F44336;
 	border: none;
-	border-radius: 5px;
 	font-size: 18px;
+	padding: 10px;
+}
+
+img {
+	width: 80px;
+	height: auto;
+	margin-right: 20px;
+}
+
+.opened-zero {
+	background-color: #F5F5F5;
+}
+
+.opened-one {
+	background-color: #CDDC39;
+}
+
+.opened-two {
+	background-color: #FFC107;
+}
+
+.opened-three {
+	background-color: #FFA000;
+}
+
+.opened-four {
+	background-color: #FF5722;
+}
+
+.opened-bomb {
+	background-color: #D32F2F;
 }

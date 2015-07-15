@@ -9,6 +9,27 @@
   
   loadTable(nbRows,nbCols,percentMines);
 
+  // Flag a bomb
+  function flagBomb(row,col) {
+    openBoard[row][col] = 'F';
+    updateValues();
+  }
+
+  // Unflag a bomb
+  function unFlagBomb(row,col) {
+    openBoard[row][col] = '';
+    updateValues();
+  }  
+
+  // Flag right click event
+  $(document).on('click','#tableBody td',function() {
+    if (gameOver === false) {
+      var col = $(this).index()
+      var row = $(this).parent().index()
+      play(row,col);
+    }
+  })
+
   // Reset table
   function resetTable() {
     $('#tableBody').children().remove();
@@ -135,9 +156,27 @@
   var updateValues = function() {
     for (i = 0; i < openBoard.length; i++) {
       for (j = 0; j < openBoard[i].length; j++) {
-        if (openBoard[i][j] !== "") {
-          $('#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ') ').text(openBoard[i][j])
-        }
+        var cellPosition = $('#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ') ');
+        switch (openBoard[i][j]) {
+          case 0:
+            cellPosition.addClass("opened-zero");
+            break;
+          case 1:
+            cellPosition.addClass("opened-one").text(openBoard[i][j]);
+            break;
+          case 2:
+            cellPosition.addClass("opened-two").text(openBoard[i][j]);
+            break;
+          case 3:
+            cellPosition.addClass("opened-three").text(openBoard[i][j]);
+            break;
+          case 4:
+            cellPosition.addClass("opened-four").text(openBoard[i][j]);
+            break;
+          case "X":
+            cellPosition.addClass("opened-bomb").text(openBoard[i][j]);
+            break;
+        } 
       }
     }
   }
