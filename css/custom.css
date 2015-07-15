@@ -78,3 +78,7 @@ img {
 .opened-bomb {
 	background-color: #D32F2F;
 }
+
+.glyphicon {
+	color: #000;
+}
