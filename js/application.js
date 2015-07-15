@@ -2,43 +2,54 @@
 
   var hiddenBoard = [];
   var openBoard = [];
+  var gameOver = false;
+  var nbRows = 10;
+  var nbCols = 10;
+  var percentMines = 0.15;
+  
+  loadTable(nbRows,nbCols,percentMines);
 
-
-  // Erase table
-  function eraseTable() {
+  // Reset table
+  function resetTable() {
     $('#tableBody').children().remove();
+    loadTable(nbRows,nbCols,percentMines);
+    gameOver = false;
   }
 
   // Load board table
-  function loadTable(row,col){
-    loadBoardArray(row,col);
-    loadOpenBoardArray(row,col);
-    createTable(row,col);
+  function loadTable(row,col,percentMines){
+    loadBoardArray(row,col,percentMines);
+    console.log('hiddenBoard array loaded')
+    loadOpenBoardArray();
+    console.log('openBoard array loaded')
+    createTable();
+    console.log('table grid loaded')
   }
 
   // Create board table
-  function createTable(row,col) {
-    for (var i = 0; i < row; i++) {
+  function createTable() {
+    for (var i = 0; i < hiddenBoard.length; i++) {
       $('#tableBody').append('<tr></tr>');
     }
-    for (var j= 0; j < col; j++) {
+    for (var j = 0; j < hiddenBoard[0].length; j++) {
       $('#tableBody').children().append('<td></td>');
     }
   }
 
   // Load openBoard empty cells
-  function loadOpenBoardArray(row,col) {
-    for (var i = 0; i<row; i++) {
+  function loadOpenBoardArray() {
+    for (var i = 0; i<hiddenBoard.length; i++) {
         openBoard[i] = [];
-        for (var j= 0; j<col; j++) {
+        for (var j= 0; j<hiddenBoard[i].length; j++) {
             openBoard[i][j] = "";
         }
     }
   }
 
   // Load hiddenBoard cells
-  function loadBoardArray(row,col) {
-      var nbMines = Math.floor((row*col)*0.2);
+  function loadBoardArray(row,col,percentMines) {
+      var nbMines = Math.floor((row*col)*percentMines);
+      console.log('Loaded', nbMines, 'mines.')
       for (var i = 0; i<row; i++) {
           hiddenBoard[i] = [];
           for (var j= 0; j<col; j++) {
@@ -84,11 +95,11 @@
 
   // Open a cell
   function open(row,col) {
-
       openBoard[row][col] = hiddenBoard[row][col];
       console.log('You found:',openBoard[row][col]);
       if (openBoard[row][col] === 'X') {
         console.log('Game over. You just blew up into pieces.')
+        gameOver = true;
       }
       if (openBoard[row][col] === 0) {
             openAround(row,col);
@@ -129,18 +140,17 @@
 
 // Click events to cells
   $(document).on('click','#tableBody td',function() {
-    var col = $(this).index()
-    var row = $(this).parent().index()
-    play(row,col);
-
+    if (gameOver === false) {
+      var col = $(this).index()
+      var row = $(this).parent().index()
+      play(row,col);
+    }
   })
 
 // Reset button
   $(document).on('click','#reset',function() {
-    eraseTable();
-    loadTable(10,10);
+    resetTable();
   })
 
-loadTable(10,10);
 
 });
