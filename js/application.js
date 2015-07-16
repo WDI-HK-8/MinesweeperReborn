@@ -191,29 +191,29 @@
         var cellPosition = $('#tableBody tr:nth-child(' + (i+1) + ') td:nth-child(' + (j+1) + ') ');
         switch (openBoard[i][j]) {
           case 0:
-            cellPosition.addClass("opened-zero");
+            cellPosition.addClass("opened-zero animated fadeIn");
             break;
           case 1:
-            cellPosition.addClass("opened-one").text(openBoard[i][j]);
+            cellPosition.addClass("opened-one animated fadeIn").text(openBoard[i][j]);
             break;
           case 2:
-            cellPosition.addClass("opened-two").text(openBoard[i][j]);
+            cellPosition.addClass("opened-two animated fadeIn").text(openBoard[i][j]);
             break;
           case 3:
-            cellPosition.addClass("opened-three").text(openBoard[i][j]);
+            cellPosition.addClass("opened-three animated fadeIn").text(openBoard[i][j]);
             break;
           case 4:
-            cellPosition.addClass("opened-four").text(openBoard[i][j]);
+            cellPosition.addClass("opened-four animated fadeIn").text(openBoard[i][j]);
             break;
           case "X":
-            cellPosition.addClass("opened-bomb").append('<span class="glyphicon glyphicon-fire"></span>');
+            cellPosition.addClass("opened-bomb animated fadeIn").append('<span class="glyphicon glyphicon-fire"></span>');
             break;
           case "F":
-            cellPosition.addClass("flag-bomb").children().remove();
+            cellPosition.addClass("flag-bomb animated fadeIn").children().remove();
             cellPosition.append('<span class="glyphicon glyphicon-flag"></span>');
             break;
           case "":
-            cellPosition.removeClass("flag-bomb").children().remove();
+            cellPosition.removeClass("flag-bomb animated fadeIn").children().remove();
             break;
         } 
       }
