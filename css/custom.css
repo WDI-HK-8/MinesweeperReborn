@@ -52,10 +52,10 @@ footer {
 }
 
 .levels:hover {
-	background-color: #F5F5F5;
-	border: 4px solid #009688;
+	background-color: #00796B;
+	border: 4px solid #00796B;
 	font-size: 18px;
-	color: #FF5252;
+	color: #F5F5F5;
 	padding: 10px;
 }
 
@@ -68,10 +68,10 @@ footer {
 }
 
 #reset:hover {
-	background-color: #F5F5F5;
-	border: 4px solid #FF5252;
+	background-color: #D32F2F;
+	border: 4px solid #D32F2F;
 	font-size: 18px;
-	color: #FF5252;
+	color: #F5F5F5;
 	padding: 10px;
 }
 
