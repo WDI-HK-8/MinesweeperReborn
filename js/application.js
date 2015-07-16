@@ -45,6 +45,14 @@
         for (j = 0; j < hiddenBoard[i].length; j++) {
           if ( (hiddenBoard[i][j] === 'X') && (openBoard[i][j] === 'F') ) {
             console.log("YOU WIN !!!");
+            $('#game-name').addClass('game-win animated zoomIn').text('You win.');
+            setTimeout(function() {
+              $('#game-name').removeClass('game-win animated zoomIn').text('Minesweeper Reborn');
+            },2000);
+            $('td').addClass("animated tada zoomIn")
+            setTimeout(function() {
+              $('td').removeClass('animated tada zoomIn');
+            },1500);
             gameOver = true;
           } 
         }
@@ -119,17 +127,6 @@
     }
   }
 
-
-  // Create board table
-  function createTable(row,col) {
-    for (var i = 0; i < row; i++) {
-      $('#tableBody').append('<tr></tr>');
-    }
-    for (var j= 0; j < col; j++) {
-      $('#tableBody').children().append('<td></td>');
-    }
-  }
-
   // Load openBoard empty cells
   function loadOpenBoardArray() {
     for (var i = 0; i<hiddenBoard.length; i++) {
@@ -195,6 +192,10 @@
     console.log('You found:',openBoard[row][col]);
     if (openBoard[row][col] === 'X') {
       console.log('Game over. You just blew up into pieces.');
+      $('#game-name').addClass('game-over animated zoomIn').text('You lost. Just blew up.');
+      setTimeout(function() {
+        $('#game-name').removeClass('game-over animated zoomIn').text('Minesweeper Reborn');
+      },2000);
       gameOver = true;
       showBombs();
     }
@@ -239,6 +240,10 @@
             break;
           case "X":
             cellPosition.addClass("opened-bomb animated fadeIn").append('<span class="glyphicon glyphicon-fire"></span>');
+            $('td').addClass("animated shake zoomIn")
+            setTimeout(function() {
+              $('td').removeClass('animated shake zoomIn');
+            },1500);
             break;
           case "F":
             cellPosition.addClass("flag-bomb animated fadeIn").children().remove();
