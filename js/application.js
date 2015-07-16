@@ -115,6 +115,7 @@
     nbCols = col;
     nbRows = row;
     percentMines = percentMines;
+    $('#flags-left').text(flagsLeft + ' flags left');
   }
 
   // Create board table
@@ -281,6 +282,7 @@
         var col = $(this).index();
         var row = $(this).parent().index();
         flagCell(row,col);
+        $('#flags-left').text(flagsLeft + ' flags left');
       }
     }
   });
