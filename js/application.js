@@ -3,12 +3,40 @@
   var hiddenBoard = [];
   var openBoard = [];
   var gameOver = false;
-  var nbRows = 10;
-  var nbCols = 10;
+  var nbRows = 4;
+  var nbCols = 4;
   var percentMines = 0.15;
   var flagsLeft = Math.floor((nbCols*nbRows)*percentMines);
   
   loadTable(nbRows,nbCols,percentMines);
+
+  // Level 1
+  function levelOne() {
+    $('#tableBody').children().remove();
+    loadTable(4,4,0.15);
+    gameOver = false;
+  }
+
+  // Level 2
+  function levelTwo() {
+    $('#tableBody').children().remove();
+    loadTable(8,8,0.15);
+    gameOver = false;
+  }
+
+  // Level 3
+  function levelThree() {
+    $('#tableBody').children().remove();
+    loadTable(12,12,0.15);
+    gameOver = false;
+  }
+
+  // Level 4
+  function levelFour() {
+    $('#tableBody').children().remove();
+    loadTable(20,20,0.15);
+    gameOver = false;
+  }
 
   // Check win
   function checkWin() {
@@ -76,6 +104,9 @@
     console.log('openBoard array loaded')
     createTable();
     console.log('table grid loaded')
+    nbCols = col;
+    nbRows = row;
+    percentMines = percentMines;
   }
 
   // Create board table
@@ -114,6 +145,7 @@
     var nbMines = Math.floor((row*col)*percentMines);
     flagsLeft = nbMines;
     console.log('Loaded', nbMines, 'mines.')
+    hiddenBoard = [];
     for (var i = 0; i<row; i++) {
         hiddenBoard[i] = [];
         for (var j= 0; j<col; j++) {
@@ -256,6 +288,26 @@
   // Reset button
   $(document).on('click','#reset',function() {
     resetTable();
+  });
+
+    // Level 1 button
+  $(document).on('click','#levelOne',function() {
+    levelOne();
+  });
+
+    // Level 2 button
+  $(document).on('click','#levelTwo',function() {
+    levelTwo();
+  });
+
+    // Level 3 button
+  $(document).on('click','#levelThree',function() {
+    levelThree();
+  });
+
+    // Level 4 button
+  $(document).on('click','#levelFour',function() {
+    levelFour();
   });
 
 
